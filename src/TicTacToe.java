@@ -14,6 +14,7 @@
             JLabel textLabel = new JLabel();
             JPanel textPanel = new JPanel();
             JPanel boardPanel = new JPanel();
+            JPanel buttonPanel = new JPanel();
 
 
             JButton[][] board = new JButton[3][3];
@@ -24,6 +25,8 @@
 
             boolean gameOver = false;
             int moves = 0;
+
+            JButton resetButton;
 
 
             TicTacToe() {
@@ -49,6 +52,20 @@
                 boardPanel.setLayout(new GridLayout(3, 3));
                 boardPanel.setBackground(Color.darkGray);
                 frame.add(boardPanel);
+
+                buttonPanel.setLayout(new FlowLayout());
+                resetButton = new JButton("Reset Game");
+                resetButton.setBackground(Color.black);
+                resetButton.setForeground(Color.white);
+                resetButton.setFont(new Font("Arial", Font.BOLD, 20));
+                resetButton.setFocusable(false);
+                resetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                resetGame(); 
+            }
+        });
+        buttonPanel.add(resetButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
             
                 for (int r = 0; r < 3; r++) {
@@ -170,6 +187,17 @@
                 textLabel.setText("It's tie!");
             }
 
-        
+            void resetGame() {
+                for (int r = 0; r < 3; r++) {
+                    for (int c = 0; c < 3; c++) {
+                        board[r][c].setText("");
+                        board[r][c].setForeground(Color.white);
+                    }
+                }
+                currentPlayer = playerX; // reset to player x
+                gameOver = false;
+                moves = 0;
+                textLabel.setText("Tic-Tac-Toe");
             }
-            
+        }
+
